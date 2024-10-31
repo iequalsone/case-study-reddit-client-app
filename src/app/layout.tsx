@@ -1,3 +1,5 @@
+import Providers from "@/providers";
+
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -28,7 +30,47 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <Providers>
+          <div className="min-h-screen flex flex-col">
+            {/* Header */}
+            <header className="bg-gray-900 text-white py-4 px-8 flex items-center justify-between">
+              {/* Logo */}
+              <div className="text-xl font-bold">Logo</div>
+
+              {/* Search Bar */}
+              <div className="flex-1 mx-4">
+                <input
+                  type="text"
+                  placeholder="Search..."
+                  className="w-full px-4 py-2 rounded-md text-gray-900"
+                />
+              </div>
+
+              {/* User Icon */}
+              <div className="text-white">
+                <span className="material-icons">account_circle</span>
+              </div>
+            </header>
+
+            {/* Main Content */}
+            <main className="flex-1 container mx-auto p-8 grid grid-cols-12 gap-6">
+              {/* Left Column */}
+              <div className="col-span-3 bg-gray-100 p-4 rounded-lg">
+                Left Column
+              </div>
+
+              {/* Center Column */}
+              <div className="col-span-6 bg-white p-4 rounded-lg shadow">
+                {children}
+              </div>
+
+              {/* Right Column */}
+              <div className="col-span-3 bg-gray-100 p-4 rounded-lg">
+                Right Column
+              </div>
+            </main>
+          </div>
+        </Providers>
       </body>
     </html>
   );
