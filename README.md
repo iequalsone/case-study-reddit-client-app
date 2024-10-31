@@ -1,36 +1,95 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Reddit Client App (WIP)
 
-## Getting Started
+A custom **Reddit client application** that allows users to browse, search, and filter Reddit posts across multiple subreddits with customizable sorting options. Built with **React** and **TypeScript**, this app leverages the **Reddit API** to provide a seamless browsing experience with real-time data.
 
-First, run the development server:
+## 🚧 Project Status: Work in Progress
 
-```bash
+This application is actively under development. Core features are being implemented incrementally, and the design and functionality are subject to change as the project progresses.
+
+## 📋 Features (Planned)
+
+- **Search and Filter**: Search for posts within specific subreddits or across Reddit. Filter by post type, subreddit, or date.
+- **Multi-Subreddit Browsing**: Browse multiple subreddits in a single view, combining content from various communities.
+- **Sorting Options**: Customizable sorting options for posts (e.g., top, hot, new, and controversial).
+- **Post Details**: View detailed information for each post, including comments and author details.
+- **Responsive Design**: Optimized for various screen sizes.
+
+## 🛠️ Tech Stack
+
+- **Frontend**: React, TypeScript
+- **API**: Reddit API for real-time content
+- **Styling**: Tailwind CSS (or alternative)
+- **State Management**: React Context or Redux (to be finalized)
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- **Node.js** and **npm** (or **Yarn**).
+- **Reddit API Credentials**: You will need to register an app on Reddit to obtain your client ID, client secret, and OAuth credentials.
+
+### Installation
+1. Clone the repository:
+```
+git clone https://github.com/yourusername/reddit-client-app.git
+cd reddit-client-app
+```
+
+2. Install dependencies:
+```
+npm install
+# or
+yarn install
+```
+
+3. Set up environment variables in a `.env` file with your Reddit API credentials:
+```
+REACT_APP_REDDIT_CLIENT_ID=your_client_id
+REACT_APP_REDDIT_SECRET=your_client_secret
+REACT_APP_REDDIT_USERNAME=your_reddit_username
+REACT_APP_REDDIT_PASSWORD=your_reddit_password
+```
+
+4. Start the development server:
+```
 npm run dev
 # or
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔧 Current Functionality
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **User Authentication**: OAuth2 authentication with Reddit.
+- **Trending Posts**: Initial setup to retrieve trending or "hot" posts.
+- **Search**: Basic search functionality across Reddit.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 🗂 Directory Structure
 
-## Learn More
+```
+src/
+├── components/        # Reusable UI components
+├── hooks/             # Custom React hooks
+├── pages/             # Main pages and routes
+├── services/          # API calls and service functions
+├── types/             # TypeScript type definitions
+├── App.tsx            # Main app component
+└── index.tsx          # Entry point
+```
 
-To learn more about Next.js, take a look at the following resources:
+## 📌 To-Do
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Implement multi-subreddit browsing.
+- Add more sorting and filtering options.
+- Implement detailed post view with comments.
+- Optimize state management.
+- Improve error handling and loading states.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📄 License
 
-## Deploy on Vercel
+This project is licensed under the MIT License.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 💬 Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Contributions, bug reports, and feature requests are welcome! Please fork the repository and submit a pull request or open an issue for discussion.
+
+Thank you for exploring this project! Check back soon for updates as we continue to build out features and polish the user experience.
