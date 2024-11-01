@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Feed } from "@/components/Feed";
+import { ResultsFeed } from "@/components/ResultsFeed";
 import { useDebounce } from "@/hooks/debounce";
 import { useSearch } from "@/contexts/SearchContext";
 import { Sorting } from "@/components/Sorting";
@@ -19,7 +19,11 @@ const Home = () => {
       <div className="flex gap-4 mb-4">
         <Sorting onSortChange={setSort} />
       </div>
-      <Feed subreddits={subreddits} sort={sort} query={debouncedSearchQuery} />
+      <ResultsFeed
+        subreddits={subreddits}
+        sort={sort}
+        query={debouncedSearchQuery}
+      />
     </div>
   );
 };
