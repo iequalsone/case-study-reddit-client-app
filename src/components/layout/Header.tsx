@@ -15,7 +15,7 @@ export default function Header() {
         <Image src={logo} alt="Reddit!" width={100} />
       </div>
 
-      <div className="flex-1 mx-4">
+      <div className="flex-1 mx-4 max-w-lg">
         <Search onSearch={setSearchTerm} />
       </div>
 
