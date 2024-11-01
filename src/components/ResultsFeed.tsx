@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { fetchSubredditPosts, searchPosts } from "@/lib/redditApi";
 
-export const Feed = ({
+export const ResultsFeed = ({
   subreddits,
   sort,
   query,
