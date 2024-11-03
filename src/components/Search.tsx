@@ -14,7 +14,7 @@ export const Search = ({ onSearch }: { onSearch: (query: string) => void }) => {
         type="text"
         placeholder="Search Reddit"
         onChange={(e) => onSearch(e.target.value)}
-        className="rounded-full border-transparent bg-slate-200 hover:bg-slate-300 focus:bg-white focus:border-blue-400 focus-visible:ring-0 pl-10 py-5"
+        className="rounded-full border-transparent border-2 bg-slate-200 hover:bg-slate-300 focus:bg-white focus:border-blue-400 focus-visible:ring-0 pl-10 py-5"
       />
     </div>
   );

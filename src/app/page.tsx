@@ -15,7 +15,6 @@ const Home = () => {
 
   return (
     <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4">Reddit Client</h1>
       <div className="flex gap-4 mb-4">
         <Sorting onSortChange={setSort} />
       </div>
