@@ -26,6 +26,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import Link from "next/link";
 
 export default function Header() {
   const { setSearchTerm } = useSearch();
@@ -40,7 +41,7 @@ export default function Header() {
         <Search onSearch={setSearchTerm} />
       </div>
 
-      <div className="mr-4">
+      <div className="">
         <UtilityNav />
       </div>
     </header>
@@ -69,13 +70,22 @@ function Logo() {
           </SheetHeader>
         </SheetContent>
       </Sheet>
-      <Image className="md:hidden" src={redditIcon} alt="Reddit!" width={35} />
-      <Image
-        className="hidden md:block"
-        src={redditLogo}
-        alt="Reddit!"
-        width={100}
-      />
+      <Link href="/">
+        <Image
+          className="md:hidden"
+          src={redditIcon}
+          alt="Reddit!"
+          width={35}
+        />
+      </Link>
+      <Link href="/">
+        <Image
+          className="hidden md:block"
+          src={redditLogo}
+          alt="Reddit!"
+          width={100}
+        />
+      </Link>
     </>
   );
 }
@@ -84,8 +94,8 @@ function UtilityNav() {
   return (
     <>
       <DropdownMenu>
-        <DropdownMenuTrigger>
-          <img src={userIcon.src} width={35} alt="" />
+        <DropdownMenuTrigger className="rounded-full hover:bg-gray-300">
+          <img className="" src={userIcon.src} width={35} alt="" />
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
