@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
-import { fetchSubredditPosts, searchPosts } from "@/lib/redditApi";
+import { useQuery } from "@tanstack/react-query";
+import {
+  fetchRedditPosts,
+  fetchSubredditPosts,
+  searchPosts,
+} from "@/lib/redditApi";
+import { RedditSearchPost } from "@/types/types";
 
 export const ResultsFeed = ({
   subreddits,
@@ -10,36 +16,25 @@ export const ResultsFeed = ({
   sort: string;
   query: string;
 }) => {
-  const [posts, setPosts] = useState<any[]>([]);
+  const [posts, setPosts] = useState<RedditSearchPost[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!query) {
-        const allPosts = await Promise.all(
-          subreddits.map((subreddit) => fetchSubredditPosts(subreddit, sort))
-        );
-        setPosts(allPosts.flat());
-      } else {
-        const allPosts = await searchPosts(query, 5, sort);
-        setPosts(allPosts.flat());
-      }
-    };
-    fetchData();
-  }, [subreddits, sort, query]);
+  const { data, error, isLoading } = useQuery({
+    queryKey: ["redditPosts", subreddits, sort], // Query key as part of an options object
+    queryFn: () => fetchRedditPosts(subreddits, sort), // Fetch function
+  });
 
-  // searchPosts('TypeScript', 5).then(posts => console.log(posts));
-
-  // // Usage (replace 'YOUR_ACCESS_TOKEN' with a valid token)
-  // searchAuthenticatedPosts('React', 'YOUR_ACCESS_TOKEN', 5).then(posts => console.log(posts));
+  if (isLoading) return <p>Loading...</p>;
+  if (error instanceof Error) return <p>Error: {error.message}</p>;
 
   return (
     <div>
-      {posts.map((post) => (
-        <div key={post.id} className="bg-white p-4 shadow rounded-lg mb-4">
-          <h3 className="text-lg font-semibold mb-2">{post.title}</h3>
-          <p className="text-gray-600">{post.selftext}</p>
-        </div>
-      ))}
+      {data &&
+        data.map((post) => (
+          <div key={post.id} className="bg-white p-4 shadow rounded-lg mb-4">
+            <h3 className="text-lg font-semibold mb-2">{post.title}</h3>
+            <p className="text-gray-600">{post.selftext}</p>
+          </div>
+        ))}
     </div>
   );
 };
