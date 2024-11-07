@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import searchIcon from "./assets/icons/search.svg";
-import { TrendingToday } from "./TrendingToday";
+import TrendingToday from "./TrendingToday";
 
 export const Search = ({ onSearch }: { onSearch: (query: string) => void }) => {
   const [isFocused, setIsFocused] = useState(false);
