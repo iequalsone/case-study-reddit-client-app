@@ -1,40 +1,52 @@
-import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import {
-  fetchRedditPosts,
-  fetchSubredditPosts,
-  searchPosts,
-} from "@/lib/redditApi";
-import { RedditSearchPost } from "@/types/types";
+"use client";
 
-export const ResultsFeed = ({
-  subreddits,
-  sort,
-  query,
-}: {
-  subreddits: string[];
-  sort: string;
-  query: string;
-}) => {
-  const [posts, setPosts] = useState<RedditSearchPost[]>([]);
+import { useState } from "react";
 
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["redditPosts", subreddits, sort], // Query key as part of an options object
-    queryFn: () => fetchRedditPosts(subreddits, sort), // Fetch function
+import { useSearch } from "@/contexts/SearchContext";
+import { useDebounce } from "@/hooks/debounce";
+import useFetchDatas from "@/hooks/useFetchDatas";
+
+import { Sorting } from "./Sorting";
+
+export const ResultsFeed = () => {
+  const [subreddits, setSubreddits] = useState<string[]>([
+    "all",
+    "ProgrammerHumor",
+    "webdev",
+  ]);
+  const [sort, setSort] = useState<string>("hot");
+
+  const { searchTerm } = useSearch();
+  const debouncedSearchQuery = useDebounce(searchTerm, 500);
+
+  const urls = subreddits.map((subreddit) => {
+    return `https://www.reddit.com/r/${subreddit}/${sort}.json`;
   });
 
-  if (isLoading) return <p>Loading...</p>;
-  if (error instanceof Error) return <p>Error: {error.message}</p>;
+  const results = useFetchDatas(urls);
+
+  const combinedChildrenData =
+    results.data
+      ?.flatMap((listing) => listing.data.children)
+      .map((child) => child.data) || [];
 
   return (
-    <div>
-      {data &&
-        data.map((post) => (
-          <div key={post.id} className="bg-white p-4 shadow rounded-lg mb-4">
-            <h3 className="text-lg font-semibold mb-2">{post.title}</h3>
-            <p className="text-gray-600">{post.selftext}</p>
-          </div>
-        ))}
-    </div>
+    <>
+      <div className="flex gap-4 mb-4">
+        <Sorting onSortChange={setSort} />
+      </div>
+      <div>
+        {combinedChildrenData &&
+          combinedChildrenData.map((post, index) => (
+            <div
+              key={`${post.id}-${index}`}
+              className="bg-white p-4 shadow rounded-lg mb-4"
+            >
+              <h3 className="text-lg font-semibold mb-2">{post.title}</h3>
+              <p className="text-gray-600">{post.selftext}</p>
+            </div>
+          ))}
+      </div>
+    </>
   );
 };
