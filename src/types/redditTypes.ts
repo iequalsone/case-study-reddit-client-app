@@ -16,13 +16,13 @@ export interface RedditResponse {
 }
 
 // Type for the main Reddit listing response
-interface RedditListingResponse {
+export interface RedditListingResponse {
   kind: "Listing";
   data: RedditListingData;
 }
 
 // Type for the main data object in the listing response
-interface RedditListingData {
+export interface RedditListingData {
   after: string | null;
   dist: number;
   modhash: string;
@@ -38,7 +38,7 @@ export interface RedditPost {
 }
 
 // Type for the detailed data of each post
-interface RedditPostData {
+export interface RedditPostData {
   approved_at_utc: number | null;
   subreddit: string;
   selftext: string;
