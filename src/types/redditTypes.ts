@@ -23,6 +23,7 @@ export interface RedditListingResponse {
 
 // Type for the main data object in the listing response
 export interface RedditListingData {
+  data: any;
   after: string | null;
   dist: number;
   modhash: string;
