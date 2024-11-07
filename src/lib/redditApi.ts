@@ -1,4 +1,4 @@
-import { RedditSearchPost, RedditResponse } from "@/types/types";
+import { RedditSearchPost, RedditResponse } from "@/types/redditTypes";
 
 export async function fetchSubredditPosts(subreddit: string, sort = "hot") {
   const response = await fetch(
