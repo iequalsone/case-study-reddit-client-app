@@ -25,19 +25,15 @@ export const ResultsFeed = () => {
 
   const results = useFetchDatas(urls);
 
-  const combinedChildrenData =
-    results.data
-      ?.flatMap((listing) => listing.data.children)
-      .map((child) => child.data) || [];
-
   return (
     <>
       <div className="flex gap-4 mb-4">
         <Sorting onSortChange={setSort} />
       </div>
       <div>
-        {combinedChildrenData &&
-          combinedChildrenData.map((post, index) => (
+        {!results.isLoading &&
+          results.data &&
+          results.data.map((post, index) => (
             <div
               key={`${post.id}-${index}`}
               className="bg-white p-4 shadow rounded-lg mb-4"

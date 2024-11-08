@@ -1,10 +1,10 @@
 import { useQueries } from "@tanstack/react-query";
 import { useEffect, useState, useMemo } from "react";
 import { FetchState } from "@/types/formTypes";
-import { RedditListingData } from "@/types/redditTypes";
+import { RedditListingData, RedditPostData } from "@/types/redditTypes";
 
-function useFetchDatas<T>(urls: string[]): FetchState<RedditListingData[]> {
-  const [combinedData, setCombinedData] = useState<RedditListingData[] | null>(
+function useFetchDatas<T>(urls: string[]): FetchState<RedditPostData[]> {
+  const [combinedData, setCombinedData] = useState<RedditPostData[] | null>(
     null
   );
   const [isLoading, setIsLoading] = useState(true);
@@ -41,7 +41,11 @@ function useFetchDatas<T>(urls: string[]): FetchState<RedditListingData[]> {
         .map((result) => (result.error as Error).message);
       const combinedError = errors.length > 0 ? errors.join(", ") : null;
 
-      setCombinedData(successfulData);
+      const combinedData = successfulData
+        .flatMap((data) => data.data.children)
+        .map((child) => child.data);
+
+      setCombinedData(combinedData);
       setError(combinedError);
       setIsLoading(false);
     }
