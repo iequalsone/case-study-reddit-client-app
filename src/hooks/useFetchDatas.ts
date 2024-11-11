@@ -2,13 +2,16 @@ import { useQueries } from "@tanstack/react-query";
 import { useEffect, useState, useMemo } from "react";
 import { FetchState } from "@/types/formTypes";
 import { RedditListingData, RedditPostData } from "@/types/redditTypes";
+import { useSearch } from "@/contexts/SearchContext";
 
-function useFetchDatas<T>(urls: string[]): FetchState<RedditPostData[]> {
+function useFetchDatas(urls: string[]): FetchState<RedditPostData[]> {
   const [combinedData, setCombinedData] = useState<RedditPostData[] | null>(
     null
   );
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const { sortOption } = useSearch();
 
   const results = useQueries({
     queries: urls.map((url) => ({
@@ -41,15 +44,17 @@ function useFetchDatas<T>(urls: string[]): FetchState<RedditPostData[]> {
         .map((result) => (result.error as Error).message);
       const combinedError = errors.length > 0 ? errors.join(", ") : null;
 
-      const combinedData = successfulData
+      const prossedData = successfulData
         .flatMap((data) => data.data.children)
         .map((child) => child.data);
 
-      setCombinedData(combinedData);
+      console.log("prossedData", prossedData);
+
+      setCombinedData(prossedData);
       setError(combinedError);
       setIsLoading(false);
     }
-  }, [allResultsFetched]); // Rely only on allResultsFetched and stable results
+  }, [allResultsFetched, sortOption]); // Rely only on allResultsFetched
 
   return {
     data: combinedData,
