@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { useSearch } from "@/contexts/SearchContext";
 import { useDebounce } from "@/hooks/debounce";
@@ -12,8 +12,12 @@ import { RedditSearchPost } from "@/types/redditTypes";
 
 export const ResultsFeed = () => {
   const [sort, setSort] = useState<string>("hot");
-  const { searchTerm } = useSearch();
+  const { searchTerm, setSortOption } = useSearch();
   const debouncedSearchQuery = useDebounce(searchTerm, 500);
+
+  useEffect(() => {
+    setSortOption(sort);
+  }, [sort]);
 
   return (
     <>
@@ -43,6 +47,9 @@ function Results({ sort }: { sort: string }) {
   });
 
   const results = useFetchDatas(urls);
+  if (results.data) {
+    console.log("results", results.data[0].title);
+  }
 
   return (
     <div>
