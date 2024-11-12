@@ -47,9 +47,6 @@ function Results({ sort }: { sort: string }) {
   });
 
   const results = useFetchDatas(urls);
-  if (results.data) {
-    console.log("results", results.data[0].title);
-  }
 
   return (
     <div>

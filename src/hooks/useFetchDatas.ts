@@ -44,13 +44,11 @@ function useFetchDatas(urls: string[]): FetchState<RedditPostData[]> {
         .map((result) => (result.error as Error).message);
       const combinedError = errors.length > 0 ? errors.join(", ") : null;
 
-      const prossedData = successfulData
+      const processedData = successfulData
         .flatMap((data) => data.data.children)
         .map((child) => child.data);
 
-      console.log("prossedData", prossedData);
-
-      setCombinedData(prossedData);
+      setCombinedData(processedData);
       setError(combinedError);
       setIsLoading(false);
     }
