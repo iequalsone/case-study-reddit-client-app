@@ -1,18 +1,26 @@
 import useFetchData from "@/hooks/useFetchData";
-
-type Post = {
-  id: number;
-  title: string;
-  body: string;
-};
+import { RedditPostData } from "@/types/redditTypes";
 
 export default function TrendingToday() {
-  const { data, error, isLoading } = useFetchData<Post[]>(
-    "https://jsonplaceholder.typicode.com/posts"
+  const { data, error, isLoading } = useFetchData<RedditPostData>(
+    "https://www.reddit.com/r/all/hot.json?limit=20"
   );
+
+  console.log("data", data);
+
+  const renderPosts = () => {
+    return data?.map((post) => (
+      <div key={post.id}>
+        <h2>{post.title}</h2>
+      </div>
+    ));
+  };
   return (
-    <div className="absolute shadow-md">
+    <div className="absolute shadow-md bg-white">
       <h1>Trending Today</h1>
+      {isLoading && <p>Loading...</p>}
+      {error && <p>Error: {error}</p>}
+      {renderPosts()}
     </div>
   );
 }
